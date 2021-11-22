@@ -16,14 +16,14 @@ class RandomDrawing {
     static Random random = ThreadLocalRandom.current();
 
     public static void main(String[] args) {
-        generateThings();
-
-        frame.addMouseListener(new MouseInputAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        Thread t = new Thread(() -> {
+            do {
                 generateThings();
-            }
+                frame.blockUntilClick();
+            } while (true);
         });
+        t.setDaemon(true);
+        t.start();
     }
 
     private static void generateThings() {

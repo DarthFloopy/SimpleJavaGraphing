@@ -2,8 +2,11 @@
 package com.josephcagle.sjg;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * GraphFrame
@@ -14,17 +17,35 @@ public class GraphFrame extends JFrame {
     private List<Drawable> drawables = java.util.Collections.emptyList();
     private GraphPanel panel;
 
+    private CountDownLatch clickSignal;
+
     public GraphFrame(int width, int height) {
         this.add(this.panel = new GraphPanel(width, height));
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.clickSignal = new CountDownLatch(1);
+        this.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                clickSignal.countDown();
+                clickSignal = new CountDownLatch(1);
+            }
+        });
+
         this.setVisible(true);
     }
 
     public void render(List<Drawable> drawables) {
         this.drawables = drawables;
         this.panel.repaint();
+    }
+
+    public void blockUntilClick() {
+        try {
+            GraphFrame.this.clickSignal.await();
+        } catch (InterruptedException ignore) { }
     }
 
     private class GraphPanel extends JPanel {

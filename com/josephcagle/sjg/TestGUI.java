@@ -9,9 +9,10 @@ class TestGUI {
         List<Drawable> thingsToDraw = new LinkedList<>();
 
         Point[] circlePoints = {
-            new Point(200,000),
+            new Point(200,200),
             new Point(150,500),
-            new Point(600,600)
+            // new Point(600,600)
+            new Point(200,200),
         };
         thingsToDraw.add(Circle.fromThreePoints(circlePoints));
         thingsToDraw.add(new Point(400, 400));

@@ -5,7 +5,7 @@ import java.awt.*;
 
 public record Circle(Point center, double radius) implements Drawable {
 
-    public Point topLeft() { return center().translate(-radius(), -radius()); }
+    public Point topLeft() { return center().translate(new Vector(-radius(), -radius())); }
 
     // Mostly copied from https://stackoverflow.com/a/4103418/10409447
     private static final double TOLERANCE = 1.0e-7;

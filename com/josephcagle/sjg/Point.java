@@ -5,8 +5,8 @@ import java.awt.*;
 
 public record Point(double x, double y) implements Drawable {
 
-    public Point translate(double x, double y) {
-        return new Point(this.x() + x, this.y() + y);
+    public Point translate(Vector vector) {
+        return new Point(this.x() + vector.x(), this.y() + vector.y());
     }
 
     private static final double VISUAL_RADIUS = 5.0;

@@ -3,6 +3,8 @@ package com.josephcagle.sjg;
 
 import java.awt.*;
 
+import java.util.List;
+
 public record Circle(Point center, double radius) implements Drawable {
 
     public Point topLeft() { return center().translate(new Vector(-radius(), -radius())); }
@@ -28,6 +30,17 @@ public record Circle(Point center, double radius) implements Drawable {
         final double radius = Math.sqrt( Math.pow(p2.x()-centerX,2) + Math.pow(p2.y()-centerY,2));
 
         return new Circle(new Point(centerX,centerY),radius);
+    }
+
+    public boolean containsPoint(Point point) {
+        return Math.hypot(point.x() - center.x(), point.y() - center.y()) <= radius;
+    }
+
+    public boolean containsPoints(List<Point> points) {
+        for (Point point : points) {
+            if (!containsPoint(point)) return false;
+        }
+        return true;
     }
 
     private static final float LINE_THICKNESS = 3.0f;

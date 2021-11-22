@@ -1,4 +1,6 @@
 
+package com.josephcagle.sjg;
+
 import java.awt.*;
 
 public record Circle(Point center, double radius) implements Drawable {

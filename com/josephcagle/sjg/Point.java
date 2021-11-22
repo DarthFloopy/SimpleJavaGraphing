@@ -1,4 +1,6 @@
 
+package com.josephcagle.sjg;
+
 import java.awt.*;
 
 public record Point(double x, double y) implements Drawable {

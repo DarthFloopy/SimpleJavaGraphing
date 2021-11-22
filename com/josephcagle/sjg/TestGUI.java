@@ -1,4 +1,6 @@
 
+package com.josephcagle.sjg;
+
 import java.util.*;
 
 class TestGUI {

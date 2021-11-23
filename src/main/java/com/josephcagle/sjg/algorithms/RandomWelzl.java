@@ -38,7 +38,7 @@ class RandomWelzl {
 
         thingsToDraw.addAll(List.of(points));
 
-        thingsToDraw.add(Welzl.welzl(List.of(points), List.of()));
+        thingsToDraw.add(Welzl.welzl(List.of(points)));
 
         frame.render(thingsToDraw);
 

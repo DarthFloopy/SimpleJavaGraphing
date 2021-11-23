@@ -4,6 +4,7 @@ package com.josephcagle.sjg.algorithms;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -15,19 +16,25 @@ public class Welzl {
 
     private static final Random random = ThreadLocalRandom.current();
 
-    public static Circle welzl(List<Point> points, List<Point> boundaryPoints) {
+
+
+    public static Circle welzl(List<Point> points) {
+        return welzlHelper(points, Collections.<Point>emptyList());
+    }
+
+    public static Circle welzlHelper(List<Point> points, List<Point> boundaryPoints) {
         if (points.isEmpty() || boundaryPoints.size() == 3)
             return trivial(boundaryPoints);
 
         Point p = points.get(random.nextInt(points.size()));
-        Circle d = welzl(
+        Circle d = welzlHelper(
             listMinus(points, p),
             boundaryPoints
         );
         if (d.containsPoint(p))
             return d;
 
-        return welzl(
+        return welzlHelper(
             listMinus(points, p),
             union(boundaryPoints, List.of(p))
         );

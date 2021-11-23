@@ -18,6 +18,7 @@ public class GraphFrame extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private List<Drawable> drawables = java.util.Collections.emptyList();
+    private String message = "";
     private GraphPanel panel;
 
     private List<Consumer<MouseEvent>> clickListeners = new LinkedList<>();
@@ -50,6 +51,10 @@ public class GraphFrame extends JFrame {
         this.panel.repaint();
     }
 
+    public void displayMessage(String message) {
+        this.message = message;
+    }
+
     public void addClickListener(Consumer<MouseEvent> clickListener) {
         this.clickListeners.add(clickListener);
     }
@@ -78,6 +83,11 @@ public class GraphFrame extends JFrame {
                 super.paintComponent(g);
                 for (Drawable d : GraphFrame.this.drawables)
                     d.draw(g2);
+
+                if (! GraphFrame.this.message.isBlank()) {
+                    g2.setColor(Color.BLACK);
+                    g2.drawString(GraphFrame.this.message, 20, 20);
+                }
             }
             else
                 throw new RuntimeException("needs Graphics2D instance");

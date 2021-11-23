@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.BasicStroke;
 
+import java.util.List;
+
 public record Circle(Point center, double radius) implements Drawable {
 
     public Point topLeft() { return center().translate(new Vector(-radius(), -radius())); }
@@ -36,10 +38,19 @@ public record Circle(Point center, double radius) implements Drawable {
         return new Circle(new Point(centerX,centerY),radius);
     }
 
+    public boolean containsPoint(Point point) {
+        return Math.hypot(point.x() - center.x(), point.y() - center.y()) <= radius;
+    }
+
+    public boolean containsPoints(List<Point> points) {
+        for (Point point : points) {
+            if (!containsPoint(point)) return false;
+        }
+        return true;
+    }
+
     public static Circle fromDiameterPoints(Point p1, Point p2) {
-        Vector distance = new Vector(p2.x()-p1.x(), p2.y()-p1.y());
-        Point midpoint = p1.translate(distance.times(0.5));
-        return new Circle(midpoint, distance.times(0.5).abs());
+        return new Circle(p1.getMidpoint(p2), p1.getDistance(p2) / 2);
     }
 
     private static final float LINE_THICKNESS = 3.0f;

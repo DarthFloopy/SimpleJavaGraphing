@@ -9,6 +9,14 @@ public record Point(double x, double y) implements Drawable {
         return new Point(this.x() + vector.x(), this.y() + vector.y());
     }
 
+    public Point getMidpoint(Point point) {
+        return new Point((this.x() + point.x()) / 2, (this.y() + point.y()) / 2);
+    }
+
+    public double getDistance(Point point) {
+        return Math.hypot(this.x() - point.x(), this.y() - point.y());
+    }
+
     private static final double VISUAL_RADIUS = 5.0;
     @Override
     public void draw(Graphics2D g2) {

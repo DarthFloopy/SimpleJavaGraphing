@@ -24,6 +24,11 @@ class RandomDrawing {
         });
         t.setDaemon(true);
         t.start();
+
+        // demonstrating alternative pattern for event listening
+        frame.addClickListener(e -> {
+            System.out.println(e);
+        });
     }
 
     private static void generateThings() {

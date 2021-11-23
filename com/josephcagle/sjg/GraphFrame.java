@@ -5,8 +5,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
+
 import java.util.List;
+import java.util.LinkedList;
 import java.util.concurrent.CountDownLatch;
+import java.util.function.Consumer;
 
 /**
  * GraphFrame
@@ -16,6 +19,8 @@ public class GraphFrame extends JFrame {
 
     private List<Drawable> drawables = java.util.Collections.emptyList();
     private GraphPanel panel;
+
+    private List<Consumer<MouseEvent>> clickListeners = new LinkedList<>();
 
     private CountDownLatch clickSignal;
 
@@ -29,6 +34,9 @@ public class GraphFrame extends JFrame {
         this.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                for (Consumer<MouseEvent> clickListener : clickListeners)
+                    clickListener.accept(e);
+
                 clickSignal.countDown();
                 clickSignal = new CountDownLatch(1);
             }
@@ -40,6 +48,10 @@ public class GraphFrame extends JFrame {
     public void render(List<Drawable> drawables) {
         this.drawables = drawables;
         this.panel.repaint();
+    }
+
+    public void addClickListener(Consumer<MouseEvent> clickListener) {
+        this.clickListeners.add(clickListener);
     }
 
     public void blockUntilClick() {

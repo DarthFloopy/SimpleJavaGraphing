@@ -1,3 +1,11 @@
 
 *.class
 
+# Maven
+target
+.classpath
+.metals
+.bloop
+.settings
+.project
+

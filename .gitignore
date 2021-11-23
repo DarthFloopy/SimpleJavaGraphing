@@ -6,6 +6,5 @@ target
 .classpath
 .metals
 .bloop
-.settings
 .project
 

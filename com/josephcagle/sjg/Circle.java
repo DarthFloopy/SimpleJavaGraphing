@@ -1,7 +1,9 @@
 
 package com.josephcagle.sjg;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.BasicStroke;
 
 import java.util.List;
 
@@ -15,6 +17,10 @@ public record Circle(Point center, double radius) implements Drawable {
     public static Circle fromThreePoints(Point ...points) {
         if (points.length != 3) throw new IllegalArgumentException("must give 3 args");
         final Point p1 = points[0], p2 = points[1], p3 = points[2];
+
+        if (p1.equals(p2)) return Circle.fromDiameterPoints(p1, p3);
+        if (p1.equals(p3)) return Circle.fromDiameterPoints(p1, p2);
+        if (p2.equals(p3)) return Circle.fromDiameterPoints(p1, p2);
 
         final double offset = Math.pow(p2.x(),2) + Math.pow(p2.y(),2);
         final double bc =   ( Math.pow(p1.x(),2) + Math.pow(p1.y(),2) - offset )/2.0;
@@ -41,6 +47,10 @@ public record Circle(Point center, double radius) implements Drawable {
             if (!containsPoint(point)) return false;
         }
         return true;
+    }
+
+    public static Circle fromDiameterPoints(Point p1, Point p2) {
+        return new Circle(p1.getMidpoint(p2), p1.getDistance(p2) / 2);
     }
 
     private static final float LINE_THICKNESS = 3.0f;

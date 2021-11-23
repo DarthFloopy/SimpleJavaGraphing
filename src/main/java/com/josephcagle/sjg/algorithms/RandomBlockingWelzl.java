@@ -35,8 +35,12 @@ class RandomBlockingWelzl {
 
         thingsToDraw.addAll(List.of(allPoints));
         frame.render(thingsToDraw);
+        frame.blockUntilClick();
 
         thingsToDraw.add(blockingWelzl(List.of(allPoints)));
+        frame.render(thingsToDraw);
+        frame.displayMessage("done");
+
     }
 
     private static void blockShowing(List<Point> points, Circle circle) {
@@ -56,6 +60,7 @@ class RandomBlockingWelzl {
         if (points.isEmpty() || boundaryPoints.size() == 3) {
             Circle trivial = trivial(boundaryPoints);
             blockShowing(boundaryPoints, trivial);
+            frame.displayMessage("trivial");
             return trivial;
         }
 
@@ -65,7 +70,8 @@ class RandomBlockingWelzl {
             boundaryPoints
         );
         if (d.containsPoint(p)) {
-            blockShowing(points, d);
+            blockShowing(union(points,boundaryPoints), d);
+            frame.displayMessage("d");
             return d;
         }
 

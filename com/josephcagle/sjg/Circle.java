@@ -50,7 +50,7 @@ public record Circle(Point center, double radius) implements Drawable {
     }
 
     public static Circle fromDiameterPoints(Point p1, Point p2) {
-        return new Circle(p1.getMidpoint(p2), p1.getDistance(p2) / 2);
+        return new Circle(p1.getMidpointTo(p2), p1.getDistanceTo(p2) / 2);
     }
 
     private static final float LINE_THICKNESS = 3.0f;

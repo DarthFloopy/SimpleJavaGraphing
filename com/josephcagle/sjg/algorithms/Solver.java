@@ -35,7 +35,7 @@ public class Solver {
             for (int j = i + 1; j < points.size(); j++) {
                 p0 = points.get(i);
                 p1 = points.get(j);
-                double radius = p0.getDistance(p1) / 2;
+                double radius = p0.getDistanceTo(p1) / 2;
                 if (radius > bestRadius) {
                     bestRadius = radius;
                     bestPoints = new ArrayList<>(Arrays.asList(p0, p1));

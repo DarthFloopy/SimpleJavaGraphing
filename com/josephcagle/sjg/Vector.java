@@ -2,7 +2,7 @@
 package com.josephcagle.sjg;
 
 public record Vector(double x, double y) {
-    public Vector times(double factor) {
+    public Vector scale(double factor) {
         return new Vector(this.x()*factor, this.y()*factor);
     }
 

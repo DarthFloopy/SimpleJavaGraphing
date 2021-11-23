@@ -9,11 +9,11 @@ public record Point(double x, double y) implements Drawable {
         return new Point(this.x() + vector.x(), this.y() + vector.y());
     }
 
-    public Point getMidpoint(Point point) {
+    public Point getMidpointTo(Point point) {
         return new Point((this.x() + point.x()) / 2, (this.y() + point.y()) / 2);
     }
 
-    public double getDistance(Point point) {
+    public double getDistanceTo(Point point) {
         return Math.hypot(this.x() - point.x(), this.y() - point.y());
     }
 

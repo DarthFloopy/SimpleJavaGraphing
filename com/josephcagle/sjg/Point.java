@@ -14,7 +14,11 @@ public record Point(double x, double y) implements Drawable {
     }
 
     public double getDistanceTo(Point point) {
-        return Math.hypot(this.x() - point.x(), this.y() - point.y());
+        return this.getVectorTo(point).abs();
+    }
+
+    public Vector getVectorTo(Point point) {
+        return new Vector(point.x() - this.x(), point.y() - this.y());
     }
 
     private static final double VISUAL_RADIUS = 5.0;

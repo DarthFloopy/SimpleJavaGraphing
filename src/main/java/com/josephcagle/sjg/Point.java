@@ -4,7 +4,7 @@ package com.josephcagle.sjg;
 import java.awt.*;
 
 public record Point(double x, double y) implements Drawable {
-
+    
     public Point translate(Vector vector) {
         return new Point(this.x() + vector.x(), this.y() + vector.y());
     }
@@ -22,16 +22,21 @@ public record Point(double x, double y) implements Drawable {
     }
 
     private static final double VISUAL_RADIUS = 5.0;
-    @Override
-    public void draw(Graphics2D g2) {
+
+    public void draw(Graphics2D g2, Color color) {
         g2.setStroke(new BasicStroke(1.0f));
-        g2.setColor(Color.BLACK);
+        g2.setColor(color);
         g2.fillOval(
             (int) (this.x()-VISUAL_RADIUS),
             (int) (this.y()-VISUAL_RADIUS),
             (int) VISUAL_RADIUS*2,
             (int) VISUAL_RADIUS*2
         );
+    }
+
+    @Override
+    public void draw(Graphics2D g2) {
+        draw(g2, Color.BLACK);
     }
 }
 
